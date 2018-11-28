@@ -17,8 +17,8 @@ class BookList extends Component {
                 bookList:resJson.books,
                 bookListLoaded: true
             });
-        } catch (e){
-            console.log(e);
+        } catch (err){
+            console.log(err);
         }
     }
 
