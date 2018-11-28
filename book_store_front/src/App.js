@@ -88,11 +88,11 @@ class App extends Component {
 			<Router>
 				<div className="App">
 					<div className='nav'>
-						<Link to='/login'>Login</Link>
-						<Link to='/register'>Register</Link>
-						<Link to='/dash'>Dashboard</Link>
-						<Link to='/books'>Books</Link>
-						<span onClick={this.handleLogout}>Logout</span>
+						{this.state.isAuthorAuthenticated?<Link to='/login' style={{marginRight:'8px'}}>Login</Link>:''}
+						{this.state.isAuthorAuthenticated?<Link to='/register' style={{marginRight:'8px'}}>Register</Link>:''}
+						<Link to='/dash' style={{marginRight:'8px'}}>Dashboard</Link>
+						<Link to='/books' style={{marginRight:'8px'}}>Books</Link>
+						{this.state.isAuthorAuthenticated? '':<button onClick={this.handleLogout} style={{float:'right'}}>Logout</button>}
 					</div>
 					<Route exact path='/books' render={()=> <BookList/>} />
 					<Route exact path ='/register' render={()=> (this.state.auth)?<Redirect to='/dash' />:<RegisterForm handleRegisterSubmit={this.handleRegisterSubmit}/> } />
