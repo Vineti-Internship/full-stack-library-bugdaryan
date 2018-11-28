@@ -15,6 +15,25 @@ class App extends Component {
 		};
 		this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
 		this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
+	}
+
+	async handleLogout(){
+		try {
+			await fetch('/logout',{
+				method:'DELETE',
+				headers:{
+					token:Auth.getToken(),
+					'Authorization':`Token ${Auth.getToken()}`
+				}
+			});
+			Auth.deauthenticateToken();
+			this.setState({
+				auth:Auth.isAuthorAuthenticated()
+			});
+		} catch (err) {
+			console.log(err)
+		}
 	}
 	
 	async handleRegisterSubmit(e,data){
@@ -73,6 +92,7 @@ class App extends Component {
 						<Link to='/register'>Register</Link>
 						<Link to='/dash'>Dashboard</Link>
 						<Link to='/books'>Books</Link>
+						<span onClick={this.handleLogout}>Logout</span>
 					</div>
 					<Route exact path='/books' render={()=> <BookList/>} />
 					<Route exact path ='/register' render={()=> (this.state.auth)?<Redirect to='/dash' />:<RegisterForm handleRegisterSubmit={this.handleRegisterSubmit}/> } />
