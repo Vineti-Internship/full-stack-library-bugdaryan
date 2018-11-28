@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../modules/Auth';
 import AddBookForm from './AddBookForm';
+import '../styles/Dashboard.css'
 
 class Dashboard extends Component {
     constructor(){
@@ -9,6 +10,7 @@ class Dashboard extends Component {
             myBooks:null,
             booksLoaded: false
         };
+        this.addBook = this.addBook.bind(this);
     }
     
     async getAuthorBooks(){
@@ -31,8 +33,9 @@ class Dashboard extends Component {
     }
 
     async addBook(e,data){
+        this.setState({booksLoaded:false})        
         try {
-            const res = await fetch('/books',{
+            await fetch('/books',{
                method:'POST',
                headers: {
                     'Content-Type': 'application/json',
@@ -43,11 +46,11 @@ class Dashboard extends Component {
                     book: data
                })
             });
-            const resJson = await res.json();
-            console.log(resJson);
             await this.getAuthorBooks();
+            this.setState({booksLoaded:true})
+
         } catch (err) {
-            console.log(err)
+             console.log(err)
         }
     }
 
@@ -60,7 +63,15 @@ class Dashboard extends Component {
             <div className='dash'>
                 <AddBookForm addBook={this.addBook}/>
                 {(this.state.booksLoaded)? this.state.myBooks.map(book => {
-                    return <h1 key={book.id}>{book.title}</h1>
+                    return (
+                        <div key={book.id} className='book'>
+                            <h1 >{book.title}</h1>
+                            <h2>{book.genre}</h2>
+                            <p>{book.description}</p>
+                            <p>{book.rating}</p>
+                            <button style={{float:'right', background:'red', color:'white', padding:'4px', fontSize:'16px'}}>Remove</button>
+                        </div>
+                    )
                 }):<h1>Loading...</h1> }
             </div>
         );

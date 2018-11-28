@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Auth from '../modules/Auth';
 
 class AddBookForm extends Component {
     constructor(){
@@ -27,8 +26,8 @@ class AddBookForm extends Component {
         return (
             <div className='form'>
                 <form onSubmit={(e) => this.props.addBook(e,this.state)}>
-                    <input type="text" name="title" placholder='title' value={this.state.title} onChange={this.handleChange}/>
-                    <input type="text" name="genre" placholder='genre' value={this.state.genre} onChange={this.handleChange}/>
+                    <input type="text" name="title" required={true} placholder='title' value={this.state.title} onChange={this.handleChange}/>
+                    <input type="text" name="genre" required={true} placholder='genre' value={this.state.genre} onChange={this.handleChange}/>
                     <input type="text" name="description" placholder='description' value={this.state.description} onChange={this.handleChange}/>
                     <input type="text" name="rating" placholder='rating' value={this.state.rating} onChange={this.handleChange}/>
                     <input type="submit" value="Add Book" />
