@@ -1,5 +1,5 @@
 import React from 'react';
-import Auth from '../modules/Auth'
+import Auth from '../store/modules/Auth'
 
 class Book extends React.Component  {
     constructor(){

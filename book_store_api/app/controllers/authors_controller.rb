@@ -11,7 +11,7 @@ class AuthorsController < ApiController
         author = Author.find_by_auth_token!(request.headers[:token])
         author_books = author.books
 
-        render json:{author:{username: author.username, email:author.email, name:author.name}, books:author_books}
+        render json:{author:{username: author.username, email:author.email, name:author.name, id: author.id}, books:author_books}
     end
 
     private

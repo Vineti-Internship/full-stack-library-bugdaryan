@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import Api from '../store/modules/Api'
 
 class BookList extends Component {
     constructor(){
@@ -11,9 +12,9 @@ class BookList extends Component {
         }
     }
 
-    async componentDidMount(){
+    async getBooks(){
         try{
-            const res = await fetch('/books');
+            const res = await Api.get('/books');
             const resJson = await res.json(); 
             this.setState({
                 bookList:resJson.books,
@@ -23,6 +24,10 @@ class BookList extends Component {
         } catch (err){
             console.log(err);
         }
+    }
+
+    componentDidMount(){
+        this.getBooks();
     }
 
     renderBooks(){
