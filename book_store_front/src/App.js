@@ -7,7 +7,6 @@ import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import Dashboard from './components/Dashboard';
 import Book from './components/Book';
-import UpdateBookForm from './components/UpdateBookForm';
 import Api from './store/modules/Api';
 
 class App extends Component {

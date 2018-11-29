@@ -29,7 +29,6 @@ class AddBookForm extends Component {
                     <input type="text" name="title" required={true} placholder='title' value={this.state.title} onChange={this.handleChange}/>
                     <input type="text" name="genre" required={true} placholder='genre' value={this.state.genre} onChange={this.handleChange}/>
                     <input type="text" name="description" placholder='description' value={this.state.description} onChange={this.handleChange}/>
-                    <input type="text" name="rating" placholder='rating' value={this.state.rating} onChange={this.handleChange}/>
                     <input type="submit" value="Add Book" />
                 </form>
             </div>
