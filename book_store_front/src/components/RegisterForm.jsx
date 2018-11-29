@@ -25,10 +25,11 @@ class RegisterForm extends Component {
         return (
             <div className='form'>
                 <form onSubmit={(e)=> this.props.handleRegisterSubmit(e,this.state)}>
-                    <input type='text' placeholder='username' name='username' value={this.state.username} onChange={this.handleChange}/>
-                    <input type='password' placeholder='password' name='password' value={this.state.password} onChange={this.handleChange}/>
-                    <input type='email' placeholder='email' name='email' value={this.state.email} onChange={this.handleChange}/>
-                    <input type='text' placeholder='name' name='name' value={this.state.name} onChange={this.handleChange}/>
+                    <input required={true} type='text' placeholder='username' name='username' value={this.state.username} onChange={this.handleChange}/>
+                    <input required={true} type='password' placeholder='password' name='password' value={this.state.password} onChange={this.handleChange}/>
+                    <input required={true} type='password' placeholder='confirm password' name='confirm_password' value={this.state.confirm_password} onChange={this.handleChange}/>
+                    <input required={true} type='email' placeholder='email' name='email' value={this.state.email} onChange={this.handleChange}/>
+                    <input required={true} type='text' placeholder='name' name='name' value={this.state.name} onChange={this.handleChange}/>
                     <input type="submit" value='Register'/>
                 </form>
             </div>

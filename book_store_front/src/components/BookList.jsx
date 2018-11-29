@@ -33,7 +33,7 @@ class BookList extends Component {
             return (
                 <div className="book" key={book.id}>
                     <Link to={`/books/${book.id}`}><h2>{book.title}</h2></Link>
-                    <h2 style={{float:'right'}}>{book.author.username}</h2>
+                    <h2 style={{float:'right'}}>{book.author.name}</h2>
                     <h3>{book.genre}</h3>
                     <p>{book.description}</p>
                     <p>{book.rating}</p>

@@ -33,7 +33,7 @@ render(){
                 Description
                 <p>{this.state.book.description}</p>
                 <p>Rating:{this.state.book.rating}</p>
-                <p>Author: {this.state.book.author.username}</p>
+                <p>Author: {this.state.book.author.name}</p>
             </div>
         );
     else

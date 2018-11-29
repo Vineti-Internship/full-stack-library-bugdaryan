@@ -111,7 +111,7 @@ class Dashboard extends Component {
                                     <button onClick={(e) => this.setUpdateBookId(e, book.id)} style={{ background:'rgb(64, 239, 76)', color:'black', padding:'4px', fontSize:'16px'}}>Update</button>
                                 </div>
                             )
-                    }):<h1>Loading...</h1> }
+                    }):<div></div>}
                 </div>
         );
         return <h1>Loading...</h1>;

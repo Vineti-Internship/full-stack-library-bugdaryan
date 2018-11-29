@@ -48,6 +48,6 @@ class AuthorsController < ApiController
     private
 
     def author_params
-        params.require(:author).permit(:username, :password, :name, :email)
+        params.require(:author).permit(:username, :password, :password_confirmation, :name, :email)
     end
 end
