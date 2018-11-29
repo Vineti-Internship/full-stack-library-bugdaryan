@@ -32,28 +32,52 @@ class Dashboard extends Component {
         }
     }
 
+    
     async addBook(e,data){
         this.setState({booksLoaded:false})        
         try {
             await fetch('/books',{
-               method:'POST',
-               headers: {
+                method:'POST',
+                headers: {
                     'Content-Type': 'application/json',
                     token:Auth.getToken(),
                     'Authorization': `Token ${Auth.getToken()}`
-               },
-               body:JSON.stringify({
+                },
+                body:JSON.stringify({
                     book: data
-               })
+                })
             });
             await this.getAuthorBooks();
             this.setState({booksLoaded:true})
-
+            
         } catch (err) {
-             console.log(err)
+            console.log(err)
         }
     }
 
+    async removeBook(book){
+        const confirmed = window.confirm(`Do you want to remove ${book.title} book?` );
+        if (confirmed){
+            this.setState({booksLoaded:false});
+            try {
+                await fetch(`/books/${book.id}`,{
+                    method:'DELETE',
+                    headers:{
+                        token:Auth.getToken(),
+                        'Authorization':`Token ${Auth.getToken()}`
+                    }
+                });
+                await this.getAuthorBooks();
+                window.alert("book is successfully deleted, rip");
+            } catch (err) {
+                console.log(err);
+            }
+
+        }else{
+            window.alert("woah, that was close!");
+        }
+    }
+    
     componentDidMount(){
         this.getAuthorBooks();
     }
@@ -69,7 +93,7 @@ class Dashboard extends Component {
                             <h2>{book.genre}</h2>
                             <p>{book.description}</p>
                             <p>{book.rating}</p>
-                            <button style={{float:'right', background:'red', color:'white', padding:'4px', fontSize:'16px'}}>Remove</button>
+                            <button onClick={() => this.removeBook(book)} style={{float:'right', background:'red', color:'white', padding:'4px', fontSize:'16px'}}>Remove</button>
                         </div>
                     )
                 }):<h1>Loading...</h1> }

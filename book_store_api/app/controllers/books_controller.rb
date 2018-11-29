@@ -27,6 +27,26 @@ class BooksController < ApiController
         end
     end
 
+    def update 
+        book = current_author.books.find(params[:id])
+
+        if book.update(book_params)
+            render json: book
+        else
+            render json: book.errors, status: :unprocessable_entity
+        end
+    end
+
+    def destroy
+        book = current_author.books.find(params[:id])
+  
+        if book.destroy
+             head(:ok)
+        else
+            head(:unprocessable_entity)
+        end
+    end
+
     private
 
     def book_params

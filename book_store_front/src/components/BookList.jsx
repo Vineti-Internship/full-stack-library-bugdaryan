@@ -15,7 +15,6 @@ class BookList extends Component {
         try{
             const res = await fetch('/books');
             const resJson = await res.json(); 
-            console.log(resJson);
             this.setState({
                 bookList:resJson.books,
                 authorList:resJson.authors,
