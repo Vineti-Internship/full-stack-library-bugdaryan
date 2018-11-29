@@ -10,7 +10,7 @@ class BooksController < ApiController
     def show
         book = Book.find(params[:id])
 
-        render json: books #{book:book, author:book.author}
+        render json: book #{book:book, author:book.author}
     end
 
     def create

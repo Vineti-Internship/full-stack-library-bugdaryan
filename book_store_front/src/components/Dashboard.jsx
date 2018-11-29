@@ -21,10 +21,10 @@ class Dashboard extends Component {
     async getAuthorBooks(){
         try{
             const res = await Api.get('/profile')
-            const resJson = await res.json();
+            const author = await res.json();
             this.setState({
-                author: resJson.author,
-                myBooks: resJson.books,
+                author: author,
+                myBooks: author.books,
                 updateBookId: -1,
                 booksLoaded: true
             });
@@ -36,7 +36,7 @@ class Dashboard extends Component {
     async addBook(e,data){
         this.setState({booksLoaded:false})        
         try {
-            await Api.post('/books',data,'book');
+            await Api.post('/books', data, 'book');
             await this.getAuthorBooks();
         } catch (err) {
             console.log(err)
@@ -65,7 +65,7 @@ class Dashboard extends Component {
     async handleUpdateBook(e, data){
         e.preventDefault();
         try {   
-            await Api.update(`/books/${data.id}`, {book:data});
+            await Api.update(`/books/${data.id}`, data, 'book');
             this.setUpdateBookId(null, -1);
             this.getAuthorBooks();
         } catch (err) {
@@ -97,7 +97,7 @@ class Dashboard extends Component {
                     </div>
 
                     <AddBookForm addBook={this.addBook}/>
-                    {(this.state.booksLoaded)? this.state.myBooks.map(book => {
+                    {(this.state.myBooks && this.state.booksLoaded)? this.state.myBooks.map(book => {
                         if(book.id === this.state.updateBookId)
                             return (<UpdateBookForm key={book.id} book = {book} handleUpdateBook={this.handleUpdateBook} setUpdateBookId={this.setUpdateBookId}/>)
                         else 

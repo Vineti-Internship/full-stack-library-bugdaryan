@@ -7,7 +7,6 @@ class BookList extends Component {
         super();
         this.state ={
             bookList:null,
-            authorList:null,
             bookListLoaded:false
         }
     }
@@ -15,10 +14,9 @@ class BookList extends Component {
     async getBooks(){
         try{
             const res = await Api.get('/books');
-            const resJson = await res.json(); 
+            const books = await res.json(); 
             this.setState({
-                bookList:resJson.books,
-                authorList:resJson.authors,
+                bookList:books,
                 bookListLoaded: true
             });
         } catch (err){
@@ -35,7 +33,7 @@ class BookList extends Component {
             return (
                 <div className="book" key={book.id}>
                     <Link to={`/books/${book.id}`}><h2>{book.title}</h2></Link>
-                    <h2 style={{float:'right'}}>{this.state.authorList.filter(author => author.id === book.author_id)[0].username}</h2>
+                    <h2 style={{float:'right'}}>{book.author.username}</h2>
                     <h3>{book.genre}</h3>
                     <p>{book.description}</p>
                     <p>{book.rating}</p>

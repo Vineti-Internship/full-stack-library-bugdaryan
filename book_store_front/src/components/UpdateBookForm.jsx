@@ -35,7 +35,7 @@ class UpdateBookForm extends React.Component {
             <form onSubmit={(e) => this.props.handleUpdateBook(e,this.state)}>
                 <input type="text" name="title" required={true} placholder='title' value={this.state.title} onChange={this.handleChange}/>
                 <input type="text" name="genre" required={true} placholder='genre' value={this.state.genre} onChange={this.handleChange}/>
-                <input type="text" name="description" placholder='description' value={this.state.description} onChange={this.handleChange}/>
+                <textarea type="text" name="description" placholder='description' value={this.state.description} onChange={this.handleChange}/>
                 <input type="submit" value="Update Book" />
                 <button onClick={(e) => this.props.setUpdateBookId(e, -1)}>Cancel</button>
             </form>

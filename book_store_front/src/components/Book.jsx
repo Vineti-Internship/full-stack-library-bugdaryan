@@ -14,12 +14,10 @@ class Book extends React.Component  {
     async componentDidMount(){
         try{
             const res = await fetch(`/books/${this.props.match.params.bookId}`);
-            const resJson = await res.json(); 
+            const book = await res.json(); 
             this.setState({
-                book:resJson.book,
-                author:resJson.author,
-                bookLoaded: true,
-                auth:Auth.isAuthorAuthenticated
+                book:book,
+                bookLoaded: true
             });
         } catch (err){
             console.log(err);
@@ -35,7 +33,7 @@ render(){
                 Description
                 <p>{this.state.book.description}</p>
                 <p>Rating:{this.state.book.rating}</p>
-                <p>Author: {this.state.author.username}</p>
+                <p>Author: {this.state.book.author.username}</p>
             </div>
         );
     else
