@@ -86,30 +86,35 @@ class Dashboard extends Component {
     }
 
     render() {
-        return (
-            <div className='dash'>
-                <div className='profile-info'>
-                    <h1>Profile</h1>
-                </div>
+        if(this.state.booksLoaded)
+            return (
+                <div className='dash'>
+                    <div className='profile-info' style={{border:'2px solid black', padding:'4px'}}>
+                        <h1>Profile</h1>
+                        <h1>Name:{this.state.author.name}</h1>
+                        <h2>username:{this.state.author.username}</h2>
+                        <h3>username:{this.state.author.email}</h3>
+                    </div>
 
-                <AddBookForm addBook={this.addBook}/>
-                {(this.state.booksLoaded)? this.state.myBooks.map(book => {
-                    if(book.id === this.state.updateBookId)
-                        return (<UpdateBookForm key={book.id} book = {book} handleUpdateBook={this.handleUpdateBook} setUpdateBookId={this.setUpdateBookId}/>)
-                    else 
-                        return (
-                            <div key={book.id} className='book'>
-                                <h1 >{book.title}</h1>
-                                <h2>{book.genre}</h2>
-                                <p>{book.description}</p>
-                                <p>{book.rating}</p>
-                                <button onClick={(e) => this.removeBook(e, book)} style={{ background:'red', color:'white', padding:'4px', fontSize:'16px', marginRight:'4px'}}>Remove</button>
-                                <button onClick={(e) => this.setUpdateBookId(e, book.id)} style={{ background:'rgb(64, 239, 76)', color:'black', padding:'4px', fontSize:'16px'}}>Update</button>
-                            </div>
-                        )
-                }):<h1>Loading...</h1> }
-            </div>
+                    <AddBookForm addBook={this.addBook}/>
+                    {(this.state.booksLoaded)? this.state.myBooks.map(book => {
+                        if(book.id === this.state.updateBookId)
+                            return (<UpdateBookForm key={book.id} book = {book} handleUpdateBook={this.handleUpdateBook} setUpdateBookId={this.setUpdateBookId}/>)
+                        else 
+                            return (
+                                <div key={book.id} className='book'>
+                                    <h1 >{book.title}</h1>
+                                    <h2>{book.genre}</h2>
+                                    <p>{book.description}</p>
+                                    <p>{book.rating}</p>
+                                    <button onClick={(e) => this.removeBook(e, book)} style={{ background:'red', color:'white', padding:'4px', fontSize:'16px', marginRight:'4px'}}>Remove</button>
+                                    <button onClick={(e) => this.setUpdateBookId(e, book.id)} style={{ background:'rgb(64, 239, 76)', color:'black', padding:'4px', fontSize:'16px'}}>Update</button>
+                                </div>
+                            )
+                    }):<h1>Loading...</h1> }
+                </div>
         );
+        return <h1>Loading...</h1>;
     }
 }
 

@@ -4,13 +4,13 @@ class BooksController < ApiController
     def index
         books = Book.all
 
-        render json: {books: books, authors:Author.all}
+        render json: books #{books: books, authors:Author.all}
     end
 
     def show
         book = Book.find(params[:id])
 
-        render json: {book:book, author:book.author}
+        render json: books #{book:book, author:book.author}
     end
 
     def create
