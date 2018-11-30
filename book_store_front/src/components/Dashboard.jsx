@@ -3,19 +3,24 @@ import AddBookForm from './AddBookForm';
 import '../styles/Dashboard.css'
 import Api from '../store/modules/Api'
 import UpdateBookForm from './UpdateBookForm';
+import UpdateProfileForm from './UpdateProfileForm';
+import Auth from '../store/modules/Auth';
 
 class Dashboard extends Component {
     constructor(){
         super();
         this.state = {
             myBooks:null,
-            booksLoaded: false
+            booksLoaded: false,
+            updateProfile:false
         };
         this.addBook = this.addBook.bind(this);
         this.getAuthorBooks = this.getAuthorBooks.bind(this);
         this.removeBook = this.removeBook.bind(this);
         this.handleUpdateBook = this.handleUpdateBook.bind(this);
-        this.setUpdateBookId = this.setUpdateBookId.bind(this);
+        this.setStateForUpdate = this.setStateForUpdate.bind(this);
+        this.handleUpdateProfile = this.handleUpdateProfile.bind(this);
+        this.handleDeleteProfile = this.handleDeleteProfile.bind(this);
     }
     
     async getAuthorBooks(){
@@ -62,24 +67,48 @@ class Dashboard extends Component {
         }
     }
 
-    async handleUpdateBook(e, data){
+    async handleUpdateBook(e, book){
         e.preventDefault();
         try {   
-            await Api.update(`/books/${data.id}`, data, 'book');
-            this.setUpdateBookId(null, -1);
+            await Api.update(`/books/${book.id}`, book, 'book');
+            this.setStateForUpdate(null, -1);
             this.getAuthorBooks();
         } catch (err) {
             console.log(err);
         }
     }
 
+    async handleUpdateProfile(e, author){
+        e.preventDefault();
+        try {
+            const res = await Api.update(`/authors/${author.id}`, author, 'author');
+            if(await res.ok){
+                this.setState({updateProfile:false});
+                this.getAuthorBooks();
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
-    setUpdateBookId(e, bookId){
+    async handleDeleteProfile(e){
+        e.preventDefault();
+        try {
+            const res = await Api.delete(`/authors/${this.state.author.id}`);
+            Auth.deauthenticateToken();
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+
+    setStateForUpdate(e, bookId){
         if(e)
             e.preventDefault();
 
-        this.setState({updateBookId:bookId});
+        this.setState({updateBookId:bookId, updateProfile:false});
     }
+
     
     componentDidMount(){
         this.getAuthorBooks();
@@ -89,17 +118,22 @@ class Dashboard extends Component {
         if(this.state.booksLoaded)
             return (
                 <div className='dash'>
-                    <div className='profile-info' style={{border:'2px solid black', padding:'4px'}}>
-                        <h1>Profile</h1>
-                        <h1>Name:{this.state.author.name}</h1>
-                        <h2>username:{this.state.author.username}</h2>
-                        <h3>username:{this.state.author.email}</h3>
+                    <div className='profile' style={{border:'2px solid black', padding:'4px'}}>
+                        {
+                        this.state.updateProfile? <UpdateProfileForm author={this.state.author} setStateForUpdate={this.setStateForUpdate} handleDeleteProfile={this.handleDeleteProfile} handleUpdateProfile={this.handleUpdateProfile}/> :
+                            <div className='profile-info'>
+                                <h1>Profile</h1>
+                                <h1>Name: {this.state.author.name}</h1>
+                                <h2>username: {this.state.author.username}</h2>
+                                <h3>email: {this.state.author.email}</h3>
+                                <button onClick={(e)=> this.setState({updateProfile:true})}>Edit Profile</button>
+                            </div>
+                        }
                     </div>
-
                     <AddBookForm addBook={this.addBook}/>
                     {(this.state.myBooks && this.state.booksLoaded)? this.state.myBooks.map(book => {
                         if(book.id === this.state.updateBookId)
-                            return (<UpdateBookForm key={book.id} book = {book} handleUpdateBook={this.handleUpdateBook} setUpdateBookId={this.setUpdateBookId}/>)
+                            return (<UpdateBookForm key={book.id} book = {book} handleUpdateBook={this.handleUpdateBook} setStateForUpdate={this.setStateForUpdate}/>)
                         else 
                             return (
                                 <div key={book.id} className='book'>
@@ -108,7 +142,7 @@ class Dashboard extends Component {
                                     <p>{book.description}</p>
                                     <p>{book.rating}</p>
                                     <button onClick={(e) => this.removeBook(e, book)} style={{ background:'red', color:'white', padding:'4px', fontSize:'16px', marginRight:'4px'}}>Remove</button>
-                                    <button onClick={(e) => this.setUpdateBookId(e, book.id)} style={{ background:'rgb(64, 239, 76)', color:'black', padding:'4px', fontSize:'16px'}}>Update</button>
+                                    <button onClick={(e) => this.setStateForUpdate(e, book.id)} style={{ background:'rgb(64, 239, 76)', color:'black', padding:'4px', fontSize:'16px'}}>Update</button>
                                 </div>
                             )
                     }):<div></div>}

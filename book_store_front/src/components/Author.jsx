@@ -27,9 +27,9 @@ render(){
     if(this.state.authorLoaded)
         return (
             <div className='author'>
-                <h1>Title:{this.state.author.name}</h1>
-                <h2>Genre:{this.state.author.email}</h2>
-                <h2>{this.state.author.username}</h2>
+                <h1>Author: {this.state.author.name}</h1>
+                <h2>Email: {this.state.author.email}</h2>
+                <h2>Username: {this.state.author.username}</h2>
                 Books
                 <BookList authorId={this.state.author.id} />
             </div>

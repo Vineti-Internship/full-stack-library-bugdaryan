@@ -34,8 +34,6 @@ class App extends Component {
 			console.log(err)
 		}
 	}
-
-	
 	
 	async handleRegisterSubmit(e,data){
 		e.preventDefault();
@@ -87,10 +85,11 @@ class App extends Component {
 			<Router>
 				<div className="App">
 					<div className='nav'>
+						{(this.state.auth)? <Link to='/dash' style={{marginRight:'8px'}}>Dashboard</Link>:''}
 						<Link to='/books' style={{marginRight:'8px'}}>Books</Link>
+						<Link to='/authors' style={{marginRight:'8px'}}>Authors</Link>
 						{(this.state.auth)? '':<Link to='/login' style={{marginRight:'8px'}}>Login</Link>}
 						{(this.state.auth)? '':<Link to='/register' style={{marginRight:'8px'}}>Register</Link>}
-						{(this.state.auth)? <Link to='/dash' style={{marginRight:'8px'}}>Dashboard</Link>:''}
 						{(this.state.auth)? <button onClick={this.handleLogout} style={{float:'right'}}>Logout</button>:''}
 					</div>
 					<Route exact path = '/books' render={()=> <BookList/>} />
