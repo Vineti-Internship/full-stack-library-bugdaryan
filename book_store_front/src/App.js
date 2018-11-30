@@ -3,10 +3,12 @@ import './App.css';
 import {BrowserRouter as Router, Link, Redirect, Route} from 'react-router-dom';
 import Auth from './store/modules/Auth';
 import BookList from './components/BookList';
+import AuthorList from './components/AuthorList';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import Dashboard from './components/Dashboard';
 import Book from './components/Book';
+import Author from './components/Author';
 import Api from './store/modules/Api';
 
 class App extends Component {
@@ -40,8 +42,9 @@ class App extends Component {
 
 		try{
 			const res = await Api.post('/authors',data,'author')
+			const resJson = await res.json();
+			console.log(resJson);
 			if (res.ok){
-				const resJson = await res.json();
 				Auth.authenticateToken(resJson.token);
 				this.setState({
 					auth:Auth.isAuthorAuthenticated()
@@ -61,8 +64,9 @@ class App extends Component {
 		e.preventDefault();
 		try {
 			const res = await Api.post('/login' ,data);
+			const resJson = await res.json();
+			console.log(resJson);
 			if(res.ok){
-				const resJson = await res.json();
 				Auth.authenticateToken(resJson.token);
 				this.setState({
 					auth:Auth.isAuthorAuthenticated()
@@ -89,11 +93,13 @@ class App extends Component {
 						{(this.state.auth)? <Link to='/dash' style={{marginRight:'8px'}}>Dashboard</Link>:''}
 						{(this.state.auth)? <button onClick={this.handleLogout} style={{float:'right'}}>Logout</button>:''}
 					</div>
-					<Route exact path = '/books' render={()=> <BookList />} />
+					<Route exact path = '/books' render={()=> <BookList/>} />
+					<Route exact path = '/authors' render={()=> <AuthorList/>} />
 					<Route exact path = '/register' render={()=> (this.state.auth)?<Redirect to='/dash' />: <RegisterForm handleRegisterSubmit={this.handleRegisterSubmit}/> } />
 					<Route exact path = '/login' render={()=> (this.state.auth)?<Redirect to='/dash' />: <LoginForm handleLoginSubmit={this.handleLoginSubmit}/>} />
 					<Route exact path = '/dash' render={()=> (this.state.auth)?<Dashboard author={this.author}/>: <Redirect to='/books' /> } />
 					<Route exact path = '/books/:bookId' component={Book} />
+					<Route exact path = '/authors/:authorId' component={Author} />
 					<Route exact path = '/' render={()=>  <Redirect to='/books' />} />
 				</div>
 			</Router>

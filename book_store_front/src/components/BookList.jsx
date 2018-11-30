@@ -13,12 +13,21 @@ class BookList extends Component {
 
     async getBooks(){
         try{
-            const res = await Api.get('/books');
-            const books = await res.json(); 
-            this.setState({
-                bookList:books,
-                bookListLoaded: true
-            });
+            if(this.props.authorId){
+                const res = await Api.get(`/authors/${this.props.authorId}`);
+                const author = await res.json(); 
+                this.setState({
+                    bookList:author.books,
+                    bookListLoaded: true
+                });
+            } else {
+                const res = await Api.get('/books');
+                const books = await res.json(); 
+                this.setState({
+                    bookList:books,
+                    bookListLoaded: true
+                });
+            }
         } catch (err){
             console.log(err);
         }
@@ -33,7 +42,7 @@ class BookList extends Component {
             return (
                 <div className="book" key={book.id}>
                     <Link to={`/books/${book.id}`}><h2>{book.title}</h2></Link>
-                    <h2 style={{float:'right'}}>{book.author.name}</h2>
+                    <h2 style={{float:'right'}}>{this.props.authorId?'':book.author.name}</h2>
                     <h3>{book.genre}</h3>
                     <p>{book.description}</p>
                     <p>{book.rating}</p>

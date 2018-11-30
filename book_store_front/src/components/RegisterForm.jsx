@@ -10,7 +10,8 @@ class RegisterForm extends Component {
             email:'',
             name:'',
             passwordsMatch:true,
-            registerFailed:false
+            registerFailed:false,
+            passwordTooShort:false
         }
         this.handleChange=this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
@@ -20,6 +21,10 @@ class RegisterForm extends Component {
         e.preventDefault()
         if(this.state.password !== this.state.password_confirmation){
             this.setState({password:'',  password_confirmation:'', passwordsMatch:false});
+            return;
+        }
+        if(this.state.password.length<6){
+            this.setState({password:'',  password_confirmation:'', passwordTooShort:true});
             return;
         }
         const res = await this.props.handleRegisterSubmit(e, this.state);
@@ -33,7 +38,8 @@ class RegisterForm extends Component {
         this.setState({
             [name]: val,
             passwordsMatch:true,
-            registerFailed:false
+            registerFailed:false,
+            passwordTooShort:false
         })
     }
 
@@ -50,6 +56,7 @@ class RegisterForm extends Component {
                 </form>
                 <label>{this.state.passwordsMatch?'':"Password didn't match"}</label>
                 <label>{this.state.registerFailed?"Invalid input":''}</label>
+                <label>{this.state.passwordTooShort?"Password is too short":''}</label>
             </div>
         );
     }

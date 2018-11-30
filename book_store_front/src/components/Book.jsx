@@ -1,13 +1,12 @@
 import React from 'react';
-import Auth from '../store/modules/Auth'
+import {Link} from 'react-router-dom'
 
 class Book extends React.Component  {
     constructor(){
         super();
         this.state={
             book:null,
-            bookLoaded: false,
-            auth: Auth.isAuthorAuthenticated
+            bookLoaded: false
         };
     }
 
@@ -33,7 +32,7 @@ render(){
                 Description
                 <p>{this.state.book.description}</p>
                 <p>Rating:{this.state.book.rating}</p>
-                <p>Author: {this.state.book.author.name}</p>
+                Author:<Link to={`/authors/${this.state.book.author.id}`}>{this.state.book.author.name}</Link>
             </div>
         );
     else
