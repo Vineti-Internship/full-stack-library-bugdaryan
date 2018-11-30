@@ -41,7 +41,6 @@ class App extends Component {
 		try{
 			const res = await Api.post('/authors',data,'author')
 			const resJson = await res.json();
-			console.log(resJson);
 			if (res.ok){
 				Auth.authenticateToken(resJson.token);
 				this.setState({
@@ -63,7 +62,6 @@ class App extends Component {
 		try {
 			const res = await Api.post('/login' ,data);
 			const resJson = await res.json();
-			console.log(resJson);
 			if(res.ok){
 				Auth.authenticateToken(resJson.token);
 				this.setState({
@@ -96,7 +94,7 @@ class App extends Component {
 					<Route exact path = '/authors' render={()=> <AuthorList/>} />
 					<Route exact path = '/register' render={()=> (this.state.auth)?<Redirect to='/dash' />: <RegisterForm handleRegisterSubmit={this.handleRegisterSubmit}/> } />
 					<Route exact path = '/login' render={()=> (this.state.auth)?<Redirect to='/dash' />: <LoginForm handleLoginSubmit={this.handleLoginSubmit}/>} />
-					<Route exact path = '/dash' render={()=> (this.state.auth)?<Dashboard author={this.author}/>: <Redirect to='/books' /> } />
+					<Route exact path = '/dash' render={()=> (this.state.auth)?<Dashboard author={this.author} handleLogout={this.handleLogout}/>: <Redirect to='/books' /> } />
 					<Route exact path = '/books/:bookId' component={Book} />
 					<Route exact path = '/authors/:authorId' component={Author} />
 					<Route exact path = '/' render={()=>  <Redirect to='/books' />} />

@@ -4,7 +4,6 @@ import '../styles/Dashboard.css'
 import Api from '../store/modules/Api'
 import UpdateBookForm from './UpdateBookForm';
 import UpdateProfileForm from './UpdateProfileForm';
-import Auth from '../store/modules/Auth';
 
 class Dashboard extends Component {
     constructor(){
@@ -94,8 +93,8 @@ class Dashboard extends Component {
     async handleDeleteProfile(e){
         e.preventDefault();
         try {
-            const res = await Api.delete(`/authors/${this.state.author.id}`);
-            Auth.deauthenticateToken();
+            await Api.delete(`/authors/${this.state.author.id}`);
+            this.props.handleLogout();
         } catch (err) {
             console.log(err);
         }
