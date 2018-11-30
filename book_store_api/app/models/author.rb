@@ -6,6 +6,7 @@ class Author < ApplicationRecord
     validates :username, length: {minimum:4, maximum:20}
     validates :name, presence: true
     validates :email, presence: true
+    # validates :password, length: {minimum:5, maximum:20}
     # validates :password, length: { minimum: 5, maximum: 20 }
     validates :password_digest, presence: true
     validates_presence_of :password_confirmation, :if => :password_digest_changed?

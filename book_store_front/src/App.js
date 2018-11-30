@@ -40,11 +40,17 @@ class App extends Component {
 
 		try{
 			const res = await Api.post('/authors',data,'author')
-			const resJson = await res.json();
-			Auth.authenticateToken(resJson.token);
-			this.setState({
-				auth:Auth.isAuthorAuthenticated()
-			});
+			if (res.ok){
+				const resJson = await res.json();
+				Auth.authenticateToken(resJson.token);
+				this.setState({
+					auth:Auth.isAuthorAuthenticated()
+				});
+				return true;
+			}else{
+				console.log(res)
+				return false;
+			}
 
 		} catch (err) {
 			console.log(err);
