@@ -55,11 +55,16 @@ class App extends Component {
 		e.preventDefault();
 		try {
 			const res = await Api.post('/login' ,data);
-			const resJson = await res.json();
-			Auth.authenticateToken(resJson.token);
-			this.setState({
-				auth:Auth.isAuthorAuthenticated()
-			});
+			if(res.ok){
+				const resJson = await res.json();
+				Auth.authenticateToken(resJson.token);
+				this.setState({
+					auth:Auth.isAuthorAuthenticated()
+				});
+				return true;
+			} else{
+				return false;
+			}
 			
 		} catch (err) {
 			console.log(err)
