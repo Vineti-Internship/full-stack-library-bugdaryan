@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {BrowserRouter as Router, Link, Redirect, Route} from 'react-router-dom';
-import Auth from './store/modules/Auth';
+import Auth from './Auth/Auth';
 import BookList from './components/BookList';
 import AuthorList from './components/AuthorList';
 import RegisterForm from './components/RegisterForm';
@@ -9,7 +9,7 @@ import LoginForm from './components/LoginForm';
 import Dashboard from './components/Dashboard';
 import Book from './components/Book';
 import Author from './components/Author';
-import Api from './store/modules/Api';
+import Api from './helpers/Api';
 
 class App extends Component {
 	constructor(){
@@ -90,13 +90,13 @@ class App extends Component {
 						{(this.state.auth)? '':<Link to='/register' style={{marginRight:'8px'}}>Register</Link>}
 						{(this.state.auth)? <button onClick={this.handleLogout} style={{float:'right'}}>Logout</button>:''}
 					</div>
+					<Route exact path = '/dash' render={()=> (this.state.auth)?<Dashboard author={this.author} handleLogout={this.handleLogout}/>: <Redirect to='/books' /> } />
 					<Route exact path = '/books' render={()=> <BookList/>} />
+					<Route exact path = '/books/:bookId' component={Book} />
 					<Route exact path = '/authors' render={()=> <AuthorList/>} />
+					<Route exact path = '/authors/:authorId' component={Author} />
 					<Route exact path = '/register' render={()=> (this.state.auth)?<Redirect to='/dash' />: <RegisterForm handleRegisterSubmit={this.handleRegisterSubmit}/> } />
 					<Route exact path = '/login' render={()=> (this.state.auth)?<Redirect to='/dash' />: <LoginForm handleLoginSubmit={this.handleLoginSubmit}/>} />
-					<Route exact path = '/dash' render={()=> (this.state.auth)?<Dashboard author={this.author} handleLogout={this.handleLogout}/>: <Redirect to='/books' /> } />
-					<Route exact path = '/books/:bookId' component={Book} />
-					<Route exact path = '/authors/:authorId' component={Author} />
 					<Route exact path = '/' render={()=>  <Redirect to='/books' />} />
 				</div>
 			</Router>

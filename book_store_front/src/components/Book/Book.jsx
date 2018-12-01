@@ -1,30 +1,19 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 
+
 class Book extends React.Component  {
-    constructor(){
-        super();
-        this.state={
-            book:null,
-            bookLoaded: false
-        };
-    }
+state={
+    book:null
+};
 
     async componentDidMount(){
-        try{
-            const res = await fetch(`/books/${this.props.match.params.bookId}`);
-            const book = await res.json(); 
-            this.setState({
-                book:book,
-                bookLoaded: true
-            });
-        } catch (err){
-            console.log(err);
-        }
+        this.props.getCurrentBook(this.state.book.author.id);
+        this.setState({book:this.props.currentBook});
     }
 
 render(){
-    if(this.state.bookLoaded)
+    if(!this.props.isLoading)
         return (
             <div className='book'>
                 <h1>Title:{this.state.book.title}</h1>

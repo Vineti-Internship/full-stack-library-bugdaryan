@@ -1,4 +1,4 @@
-import Auth from './Auth'
+import Auth from '../Auth/Auth'
 
 const headers = () =>{
     const token = Auth.getToken();

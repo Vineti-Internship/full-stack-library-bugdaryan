@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import Api from '../store/modules/Api'
+import Api from '../helpers/Api'
 
 class AuthorList extends Component {
     constructor(){
