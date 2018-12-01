@@ -25,7 +25,7 @@ class Dashboard extends Component {
             const res = await Api.update(`/authors/${author.id}`, author, 'author');
             if(await res.ok){
                 this.setState({updateProfile:false});
-                this.getAuthorBooks();
+                this.props.getAuthorBooks();
             }
         } catch (err) {
             console.log(err);
@@ -61,6 +61,7 @@ class Dashboard extends Component {
     }
 
     render() {
+        console.log(this.props)
         if(!this.props.isLoading)
             return (
                 <div className='dash'>

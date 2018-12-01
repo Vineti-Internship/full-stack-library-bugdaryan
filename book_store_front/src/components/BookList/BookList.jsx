@@ -4,7 +4,8 @@ import UpdateBookForm from '../UpdateBookForm';
 
 class BookList extends Component {
     state={
-        updateBookId:-1
+        updateBookId:-1,
+        books:null
     }
 
     setUpdateBookId(e, id){
@@ -13,21 +14,17 @@ class BookList extends Component {
         this.setState({updateBookId:id});
     }
 
-    getBooks(){
+    async getBooks(){
         if(this.props.authorOnHomePage){
-            this.props.getCurrentAuthorBooks();
+            await this.props.getCurrentAuthorBooks();
             this.setState({books:this.props.currentAuthorBooks});
         } else if(this.props.authorId){
-            this.props.getAuthorBooks(this.props.authorId);
+            await this.props.getAuthorBooks(this.props.authorId);
             this.setState({books:this.props.authorBooks});
         } else{
-            this.props.getAllBooks();
+            await this.props.getAllBooks();
             this.setState({books:this.props.allBooks});
         }
-    }
-
-    componentDidMount(){
-        this.getBooks();
     }
 
     renderBook(book){
@@ -45,6 +42,10 @@ class BookList extends Component {
         );
     }
 
+    componentDidMount(){
+        this.getBooks();
+    }
+
     renderBooks(){
         return this.state.books.map(book => {
             return (
@@ -56,7 +57,7 @@ class BookList extends Component {
     render() {
         return (
             <div className='book-list'>
-                {this.props.isLoading? this.renderBooks():<h1>Loading...</h1>}
+                {this.props.isLoading || !this.state.books ?<h1>Loading...</h1>:this.renderBooks()}
             </div>
         );
     }

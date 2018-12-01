@@ -5,15 +5,15 @@ import {Link} from 'react-router-dom'
 class Book extends React.Component  {
 state={
     book:null
-};
+    };
 
     async componentDidMount(){
-        this.props.getCurrentBook(this.state.book.author.id);
+        await this.props.getCurrentBook(this.props.match.params.bookId);
         this.setState({book:this.props.currentBook});
     }
 
 render(){
-    if(!this.props.isLoading)
+    if(!this.props.isLoading && this.state.book)
         return (
             <div className='book'>
                 <h1>Title:{this.state.book.title}</h1>

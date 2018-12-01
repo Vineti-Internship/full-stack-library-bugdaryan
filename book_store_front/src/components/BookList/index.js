@@ -12,7 +12,7 @@ export default (props)=> (
             authorBooks,
             getAuthorBooks,
             isLoading
-        }) => 
+            }) =>         
                 <BookList 
                 {...props}
                 authorBooks={authorBooks}
@@ -22,6 +22,7 @@ export default (props)=> (
                 isLoading={isLoading}
                 currentAuthorBooks={currentAuthorBooks} 
                 getCurrentAuthorBooks={getCurrentAuthorBooks}
-                />}
+                />
+        }
     </BooksContext.Consumer>
 );

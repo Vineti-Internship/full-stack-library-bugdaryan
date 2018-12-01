@@ -4,6 +4,17 @@ import Api from '../helpers/Api';
 export const BooksContext = React.createContext();
 
 export class BooksProvider extends React.Component {
+    constructor(){
+        super();
+        this.addBook = this.addBook.bind(this);
+        this.updateBook = this.updateBook.bind(this);
+        this.removeBook = this.removeBook.bind(this);
+        this.getAuthorBooks = this.getAuthorBooks.bind(this);
+        this.getCurrentAuthorBooks = this.getCurrentAuthorBooks.bind(this);
+        this.getAllBooks = this.getAllBooks.bind(this);
+        this.getCurrentBook = this.getCurrentBook.bind(this);
+        this.find = this.find.bind(this);
+    }
 
     async addBook(book){      
         try {
@@ -81,11 +92,10 @@ export class BooksProvider extends React.Component {
             const res = await Api.get('/books');
             const books = await res.json(); 
             this.setState({
-                allBook:books,
+                allBooks:books,
                 booksLoaded: true,
                 isLoading:false
             });
-            
         } catch (err) {
             console.log(err)
         }
