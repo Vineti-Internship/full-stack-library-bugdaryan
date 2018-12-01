@@ -4,7 +4,7 @@ import React from 'react';
 import { AuthorsContext } from '../../contexts/AuthorsContext';
 
 export default (props)=> (
-    <AuthorsContext>
+    <AuthorsContext.Consumer>
     {
         ({
             allAuthors,
@@ -29,5 +29,5 @@ export default (props)=> (
             }
             </BooksContext.Consumer>
     }
-    </AuthorsContext>
+    </AuthorsContext.Consumer>
 );

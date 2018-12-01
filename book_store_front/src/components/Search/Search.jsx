@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import '../../styles/Search.css';
 
 class Search extends React.Component {
     constructor(){
@@ -35,25 +36,20 @@ class Search extends React.Component {
                     return author.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1; 
                 }
             );
-            // let filteredAuthors = 
             return (
                 <div className="search-bar">
                     <input type="text" name="search" maxLength='20' value={this.state.search} onChange={this.updateSearch.bind(this)}/>
+                    <h2>books</h2>
                     <div className='filtered-books' style={{border:'2px solid black'}}>
-                        <h2>books</h2>
-                        <ul>
                             {filteredBooks.map((book)=>{
-                                return <Link key={book.id} to={`/books/${book.id}`}><h1>{book.title }</h1></Link>
+                                return <div key={book.id} className='book'><Link  to={`/books/${book.id}`}><h1>{book.title }</h1> </Link><Link className='book-author' to={`/authors/${book.author.id}`}><h2>Author: {book.author.name}</h2></Link></div>
                             })}
-                        </ul>
                     </div>
-                    <div className='filtered-authors' style={{border:'2px solid black'}}>
                     <h2>authors</h2>                        
-                        <ul>
+                    <div className='filtered-authors' style={{border:'2px solid black'}}>
                             {filteredAuthors.map((author)=>{
-                                return <Link key={author.id} to={`/authors/${author.id}`}><h1>{author.name}</h1></Link>
+                                return <div key={author.id} className='author'><Link  to={`/authors/${author.id}`}><h1>Name: {author.name}</h1><h2>Username: {author.username}</h2></Link></div>
                             })}
-                        </ul>
                     </div>
                 </div>
             );

@@ -36,10 +36,13 @@ class AddBookForm extends Component {
 
     render() {
         return (
-            <div className='form'>
+            <div className='AddBookForm'>
                 <form onSubmit={(e) => this.addBook(e)}>
+                    <label style={{color:'white'}}> Book Title: </label>
                     <input type="text" name="title" required={true} placholder='title' value={this.state.title} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Book Genre: </label>                    
                     <input type="text" name="genre" required={true} placholder='genre' value={this.state.genre} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Description: </label>                    
                     <textarea type="text" name="description" placholder='description' value={this.state.description} onChange={this.handleChange}/>
                     <input type="submit" value="Add Book" />
                 </form>

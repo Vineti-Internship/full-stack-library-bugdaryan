@@ -53,11 +53,16 @@ class UpdateProfileForm extends React.Component {
         if(!this.props.authorIsLoading)
             return (
                 <form onSubmit={(e) => this.handleUpdate(e,this.state)}>
+                <div>
+                    <label style={{color:'white'}}> Name: </label>
                     <input type="text" name="name" required placholder='name' value={this.state.name} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Password: </label>
                     <input type="password" name="password"  placholder='password' value={this.state.password} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Confirm Password: </label>
                     <input type="password" name="password_confirmation" placholder='confirm password' value={this.state.password_confirmation} onChange={this.handleChange}/>
+                </div>
                     <input type="submit" value="Update" />
-                    <button onClick={(e) => this.props.setStateForUpdate(e, -1)}>Cancel</button>
+                    <button onClick={(e) => this.props.setStateForUpdate(e, false)}>Cancel</button>
                     <button onClick={(e) => this.props.deleteAuthor()}>Delete Account</button>
                     <label>{this.state.passwordMatch?'':"Password didn't match"}</label>
                     <label>{this.state.shortPassword?"Password is too short, minimum 6 characters":''}</label>

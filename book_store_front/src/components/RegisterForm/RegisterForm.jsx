@@ -48,11 +48,16 @@ class RegisterForm extends Component {
         return (
             <div className='form'>
                 <form onSubmit={(e)=> this.handleSubmit(e,this.state)}>
-                    <input required type='text' placeholder='username' name='username' value={this.state.username} onChange={this.handleChange}/>
-                    <input required type='password' placeholder='password' name='password' value={this.state.password} onChange={this.handleChange}/>
-                    <input required type='password' placeholder='confirm password' name='password_confirmation' value={this.state.password_confirmation} onChange={this.handleChange}/>
-                    <input required type='email' placeholder='email' name='email' value={this.state.email} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Name: </label>
                     <input required type='text' placeholder='name' name='name' value={this.state.name} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Username: </label>
+                    <input required type='text' placeholder='username' name='username' value={this.state.username} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Email: </label>
+                    <input required type='email' placeholder='email' name='email' value={this.state.email} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Password: </label>
+                    <input required type='password' placeholder='password' name='password' value={this.state.password} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Confirm Password: </label>
+                    <input required type='password' placeholder='confirm password' name='password_confirmation' value={this.state.password_confirmation} onChange={this.handleChange}/>
                     <input type="submit" value='Register'/>
                 </form>
                 <label>{this.state.passwordsMatch?'':"Password didn't match"}</label>

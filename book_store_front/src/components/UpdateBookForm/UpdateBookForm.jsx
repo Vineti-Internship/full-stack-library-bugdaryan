@@ -28,7 +28,8 @@ class UpdateBookForm extends React.Component {
     }
 
     async updateBook(e){
-        e.preventDefault();
+        if(e)
+            e.preventDefault();
         await this.props.updateBook(this.state);
         this.props.setUpdateBookId(e, -1);
         await this.props.getBooks();
@@ -38,8 +39,11 @@ class UpdateBookForm extends React.Component {
         if(!this.props.booksIsLoading)
             return (
                 <form onSubmit={(e) => this.updateBook(e)}>
+                    <label style={{color:'white'}}> Title: </label>
                     <input type="text" name="title" required={true} placholder='title' value={this.state.title} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Genre: </label>
                     <input type="text" name="genre" required={true} placholder='genre' value={this.state.genre} onChange={this.handleChange}/>
+                    <label style={{color:'white'}}> Description: </label>
                     <textarea type="text" name="description" placholder='description' value={this.state.description} onChange={this.handleChange}/>
                     <input type="submit" value="Update Book" />
                     <button onClick={(e) => this.props.setUpdateBookId(e, -1)}>Cancel</button>

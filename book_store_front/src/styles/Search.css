@@ -1,0 +1,43 @@
+.search-bar input{
+    padding: 6px;   
+    background: rgb(14, 30, 56);
+    border:none;
+    border-radius: 4px;
+    font-size:20px;
+    color:white;
+    width: 300px;
+    outline: none;
+}
+.filtered-books h1, .filtered-books h2{
+    margin-left: 12px;
+    text-align: center;
+}
+
+.book {
+    border:5px solid white;
+}
+
+.filtered-books a{
+    text-decoration: none !important;
+    color:white;
+    width:0;
+}
+
+.book-author{
+    color:rgb(14, 30, 56) !important;
+}
+
+
+.filtered-authors a{
+    text-decoration: none;
+    color:white;
+}
+
+.filtered-authors h1, .filtered-authors h2{
+    text-align: center;
+    margin-left: 12px;
+}
+
+.author{
+    border: solid 5px rgb(14, 30, 56);
+}

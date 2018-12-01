@@ -4,6 +4,10 @@
   padding:60px;
 }
 
+.App a{
+  text-decoration: none !important;
+}
+
 .nav{
   margin-bottom: 6px;
 }
@@ -13,7 +17,7 @@
   background: rgb(14, 30, 56);
   border:none;
   border-radius: 4px;
-  font-size:16px;
+  font-size:18px;
   color:white;
   width: 150px;
   border-top-right-radius: 0;
@@ -27,7 +31,7 @@
   border:none;
   padding: 6px;   
   background: rgb(14, 30, 56);
-  font-size:16px;
+  font-size:18px;
   border-radius: 4px;
   text-decoration: none;
   color:white;

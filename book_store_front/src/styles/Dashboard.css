@@ -2,3 +2,21 @@
     border:solid 2px gray;
     padding:4px;
 }
+
+.AddBookForm{
+    border:solid white 4px;
+}
+
+
+input, textArea{
+    padding: 6px;   
+    background: rgb(14, 30, 56);
+    border:none;
+    border-radius: 4px;
+    font-size:18px;
+    color:white;
+    width: 150px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    outline: none;
+}

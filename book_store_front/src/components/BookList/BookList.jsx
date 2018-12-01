@@ -49,9 +49,8 @@ class BookList extends Component {
         return (
             <div className="book" key={book.id}>
                 {this.props.authorOnHomePage? <h2>{book.title}</h2>:<Link to={`/books/${book.id}`}><h2>{book.title}</h2></Link>}
-                <h2 style={{float:'right'}}>{this.props.authorId?'':book.author.name}</h2>
                 <h3>{book.genre}</h3>
-                {!this.props.authorOnHomePage && !this.props.authorId && <h3 style={{float:'right'}}>{book.authorName}</h3>}
+                {!this.props.authorOnHomePage && !this.props.authorId && <h3 style={{float:'right'}}>{book.author.username}</h3>}
                 <p>{book.description}</p>
                 <p>{book.rating}</p>
                 {this.props.authorOnHomePage && <button onClick={(e) => this.removeBook(e, book)} style={{ background:'red', color:'white', padding:'4px', fontSize:'16px', marginRight:'4px'}}>Remove</button>}
@@ -66,7 +65,7 @@ class BookList extends Component {
             this.state.books.map(book => {
             return (
                 book.id===this.state.updateBookId? 
-                    <UpdateBookForm book={book} getBooks={this.getBooks} setUpdateBookId={this.setUpdateBookId} /> 
+                    <UpdateBookForm key={book.id} book={book} getBooks={this.getBooks} setUpdateBookId={this.setUpdateBookId} /> 
                     :this.renderBook(book)
             );
         }))
