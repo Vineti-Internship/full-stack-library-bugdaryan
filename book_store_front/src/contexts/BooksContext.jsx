@@ -12,15 +12,15 @@ export class BooksProvider extends React.Component {
         this.getAuthorBooks = this.getAuthorBooks.bind(this);
         this.getCurrentAuthorBooks = this.getCurrentAuthorBooks.bind(this);
         this.getAllBooks = this.getAllBooks.bind(this);
-        this.getCurrentBook = this.getCurrentBook.bind(this);
+        this.getBook = this.getBook.bind(this);
         this.find = this.find.bind(this);
     }
 
     async addBook(book){      
         try {
-            this.setState({isLoading:true});
+            this.setState({booksIsLoading:true});
             await Api.post('/books', book, 'book');
-            this.setState({isLoading:false});            
+            this.setState({booksIsLoading:false});            
             await this.getAllBooks();
         } catch (err) {
             console.log(err)
@@ -29,9 +29,9 @@ export class BooksProvider extends React.Component {
 
     async updateBook(book){
         try {
-            this.setState({isLoading:true});
+            this.setState({booksIsLoading:true});
             await Api.update(`/books/${book.id}`, book, 'book');
-            this.setState({isLoading:false});
+            this.setState({booksIsLoading:false});
             this.getAuthorBooks();
         } catch (err) {
             console.log(err);
@@ -43,10 +43,10 @@ export class BooksProvider extends React.Component {
 
         const confirmed = window.confirm(`Do you want to remove ${book.title} book?` );
         if (confirmed){
-            this.setState({isLoading:true});
+            this.setState({booksIsLoading:true});
             try {
                 await Api.delete(`/books/${book.id}`)
-                this.setState({isLoading:false});
+                this.setState({booksIsLoading:false});
                 await this.getAllBooks();
                 window.alert("book is successfully deleted, rip");
             } catch (err) {
@@ -57,16 +57,16 @@ export class BooksProvider extends React.Component {
         }
     }
 
-    async getAuthorBooks(authorId){
+    async getAuthorBooks(username){
         try{
-            this.setState({isLoading:true});
-            const res = await Api.get(`/authors/${authorId}`);
+            this.setState({booksIsLoading:true});
+            const res = await Api.get(`/authors/${username}`);
             const {books} = await res.json(); 
             this.setState({
                 authorBooks:books,
                 authorBooksLoaded: true
             });
-            this.setState({isLoading:false});
+            this.setState({booksIsLoading:false});
         } catch (err){
             console.log(err);
         }
@@ -74,12 +74,12 @@ export class BooksProvider extends React.Component {
 
     async getCurrentAuthorBooks(){
         try {
-            this.setState({isLoading:true});
+            this.setState({booksIsLoading:true});
             const res = await Api.get('/profile');
             const {books} = await res.json();
             this.setState({
                 currentAuthorBooks:books, 
-                isLoading:false
+                booksIsLoading:false
             });
         } catch (err) {
             console.log(err)
@@ -88,27 +88,27 @@ export class BooksProvider extends React.Component {
 
     async getAllBooks(){
         try {
-            this.setState({isLoading:true});
+            this.setState({booksIsLoading:true});
             const res = await Api.get('/books');
             const books = await res.json(); 
             this.setState({
                 allBooks:books,
                 booksLoaded: true,
-                isLoading:false
+                booksIsLoading:false
             });
         } catch (err) {
             console.log(err)
         }
     }
 
-    async getCurrentBook(id){
+    async getBook(id){
         try {
-            this.setState({isLoading:true});
+            this.setState({booksIsLoading:true});
             const res = await Api.get(`/books/${id}`);
             const book = await res.json();
             this.setState({
-                currentBook:book,
-                isLoading:false
+                book:book,
+                booksIsLoading:false
             });
         } catch (err) {
             console.log(err);
@@ -124,13 +124,13 @@ export class BooksProvider extends React.Component {
     }
 
     state={
-        isLoading:false,
-        allBooks:null,
+        booksIsLoading:false,
+        allBooks:[],
         booksLoaded:false,
-        authorBooks:null,
+        authorBooks:[],
         authorBooksLoaded:false,
         currentAuthorBooks:null,
-        currentBook:null
+        book:null
     };
 
     render(){
@@ -145,7 +145,7 @@ export class BooksProvider extends React.Component {
                 getCurrentAuthorBooks:this.getCurrentAuthorBooks, 
                 getAllBooks:this.getAllBooks, 
                 find:this.find,
-                getCurrentBook:this.getCurrentBook
+                getBook:this.getBook
             }}>
             {this.props.children}
         </BooksContext.Provider>

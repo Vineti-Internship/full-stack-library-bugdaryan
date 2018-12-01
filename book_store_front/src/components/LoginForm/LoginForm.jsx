@@ -23,9 +23,13 @@ class LoginForm extends Component {
 
     async handleSubmit(e){
         e.preventDefault();
-        const res = await this.props.handleLoginSubmit(e,this.state);
-        this.setState({loginFailed:(!res)});
-        this.setState({password:''});
+        const failed = this.props.checkPasswordLength(this.state.password);
+        if(failed){
+            this.setState({loginFailed:failed});
+            this.setState({password:''});
+        }
+        this.props.login(this.state);
+        this.props.checkAuthorAuthentication();
     }
 
     render() {

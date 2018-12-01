@@ -8,12 +8,12 @@ state={
     };
 
     async componentDidMount(){
-        await this.props.getCurrentBook(this.props.match.params.bookId);
-        this.setState({book:this.props.currentBook});
+        await this.props.getBook(this.props.match.params.bookId);
+        this.setState({book:this.props.book});
     }
 
 render(){
-    if(!this.props.isLoading && this.state.book)
+    if(!this.props.booksIsLoading && this.state.book)
         return (
             <div className='book'>
                 <h1>Title:{this.state.book.title}</h1>

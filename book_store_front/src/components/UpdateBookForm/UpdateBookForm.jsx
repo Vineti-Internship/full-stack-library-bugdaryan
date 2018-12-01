@@ -25,18 +25,18 @@ class UpdateBookForm extends React.Component {
     updateBook(e){
         e.preventDefault();
         this.props.updateBook(this.state);
-        this.props.setUpdateBookId(e, -1);
+        this.props.setStateForUpdate(e, -1);
     }
 
     render() {
-        if(!this.props.isLoading)
+        if(!this.props.booksIsLoading)
             return (
                 <form onSubmit={(e) => this.updateBook(e)}>
                     <input type="text" name="title" required={true} placholder='title' value={this.state.title} onChange={this.handleChange}/>
                     <input type="text" name="genre" required={true} placholder='genre' value={this.state.genre} onChange={this.handleChange}/>
                     <textarea type="text" name="description" placholder='description' value={this.state.description} onChange={this.handleChange}/>
                     <input type="submit" value="Update Book" />
-                    <button onClick={(e) => this.props.setUpdateBookId(e, -1)}>Cancel</button>
+                    <button onClick={(e) => this.props.setStateForUpdate(e, -1)}>Cancel</button>
                 </form>
             );
         return <h1>Loading...</h1>

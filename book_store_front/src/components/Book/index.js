@@ -1,15 +1,15 @@
 import Book from './Book';
-import {BooksContext} from '../../contexts/BookContext';
+import {BooksContext} from '../../contexts/BooksContext';
 import React from 'react';
 
 export default (props)=> (
     <BooksContext.Consumer>
-        {({currentBook, getCurrentBook, isLoading}) => 
+        {({book, getBook, booksIsLoading}) => 
             <Book 
                 {...props} 
-                currentBook={currentBook} 
-                getCurrentBook={getCurrentBook}
-                isLoading={isLoading}
+                book={book} 
+                getBook={getBook}
+                booksIsLoading={booksIsLoading}
             />}
     </BooksContext.Consumer>
 );

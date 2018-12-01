@@ -20,7 +20,7 @@ class BookList extends Component {
             this.setState({books:this.props.currentAuthorBooks});
         } else if(this.props.authorId){
             await this.props.getAuthorBooks(this.props.authorId);
-            this.setState({books:this.props.authorBooks});
+            this.setState({books:this.props.authorId});
         } else{
             await this.props.getAllBooks();
             this.setState({books:this.props.allBooks});
@@ -57,7 +57,7 @@ class BookList extends Component {
     render() {
         return (
             <div className='book-list'>
-                {this.props.isLoading || !this.state.books ?<h1>Loading...</h1>:this.renderBooks()}
+                {this.props.booksIsLoading || !this.state.books ?<h1>Loading...</h1>:this.renderBooks()}
             </div>
         );
     }

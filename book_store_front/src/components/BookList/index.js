@@ -1,5 +1,5 @@
 import BookList from './BookList';
-import {BooksContext} from '../../contexts/BookContext';
+import {BooksContext} from '../../contexts/BooksContext';
 import React from 'react';
 
 export default (props)=> (
@@ -11,7 +11,7 @@ export default (props)=> (
             getAllBooks,
             authorBooks,
             getAuthorBooks,
-            isLoading
+            booksIsLoading
             }) =>         
                 <BookList 
                 {...props}
@@ -19,7 +19,7 @@ export default (props)=> (
                 getAuthorBooks={getAuthorBooks}
                 allBooks={allBooks}
                 getAllBooks={getAllBooks}
-                isLoading={isLoading}
+                booksIsLoading={booksIsLoading}
                 currentAuthorBooks={currentAuthorBooks} 
                 getCurrentAuthorBooks={getCurrentAuthorBooks}
                 />

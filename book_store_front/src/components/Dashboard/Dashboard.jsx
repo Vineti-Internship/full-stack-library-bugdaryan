@@ -5,6 +5,7 @@ import Api from '../../helpers/Api';
 import UpdateBookForm from '../UpdateBookForm';
 import UpdateProfileForm from '../UpdateProfileForm';
 import BookList from '../BookList';
+import ProfileForm from '../ProfileForm';
 
 class Dashboard extends Component {
     constructor(){
@@ -14,78 +15,48 @@ class Dashboard extends Component {
         };
 
         this.setStateForUpdate = this.setStateForUpdate.bind(this);
-        this.handleUpdateProfile = this.handleUpdateProfile.bind(this);
-        this.handleDeleteProfile = this.handleDeleteProfile.bind(this);
-        this.updateBooks = this.updateBooks.bind(this);
+        this.getBooks = this.getBooks.bind(this);
     }
 
-    async handleUpdateProfile(e, author){
-        e.preventDefault();
-        try {
-            const res = await Api.update(`/authors/${author.id}`, author, 'author');
-            if(await res.ok){
-                this.setState({updateProfile:false});
-                this.props.getAuthorBooks();
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    async handleDeleteProfile(e){
-        e.preventDefault();
-        try {
-            await Api.delete(`/authors/${this.state.author.id}`);
-            this.props.handleLogout();
-        } catch (err) {
-            console.log(err);
-        }
-
-    }
-
-    updateBooks(){
+    getBooks(){
         this.props.getCurrentAuthorBooks();
         this.setState({books:this.props.currentAuthorBooks});
     }
 
-    setStateForUpdate(e, bookId){
+    setStateForUpdate(e, bookId, updateProfile){
         if(e)
             e.preventDefault();
-
-        this.setState({updateBookId:bookId, updateProfile:false});
+        if(updateProfile)
+            this.setState({updateBookId:bookId, updateProfile:true});
+        this.setState({updateBookId:bookId, updateProfile:true});
     }
 
     
     componentDidMount(){
-        this.updateBooks();
+        this.getBooks();
     }
 
     render() {
         console.log(this.props)
-        if(!this.props.isLoading)
+        if(!this.props.booksIsLoading)
             return (
                 <div className='dash'>
                     <div className='profile' style={{border:'2px solid black', padding:'4px'}}>
                         {
-                        this.state.updateProfile? <UpdateProfileForm author={this.state.author} setStateForUpdate={this.setStateForUpdate} handleDeleteProfile={this.handleDeleteProfile} handleUpdateProfile={this.handleUpdateProfile}/> :
-                            <div className='profile-info'>
-                                <h1>Profile</h1>
-                                <h1>Name: {this.state.author.name}</h1>
-                                <h2>username: {this.state.author.username}</h2>
-                                <h3>email: {this.state.author.email}</h3>
-                                <button onClick={(e)=> this.setState({updateProfile:true})}>Edit Profile</button>
-                            </div>
+                        this.state.updateProfile? <UpdateProfileForm setStateForUpdate={this.setStateForUpdate}/> :
+                            <ProfileForm setStateForUpdate={this.setStateForUpdate}/>
                         }
                     </div>
                     <AddBookForm />
-                    {(this.state.myBooks && this.state.booksLoaded)? this.state.myBooks.map(book => {
+                    {(this.state.books && !this.props.booksIsLoading && !this.props.authorsIsLoading)? 
+                    this.state.myBooks.map(book => {
                         if(book.id === this.state.updateBookId)
-                            return (<UpdateBookForm key={book.id} book = {book} handleUpdateBook={this.handleUpdateBook} setStateForUpdate={this.setStateForUpdate}/>)
+                            return (<UpdateBookForm key={book.id} book={book}  setStateForUpdate={this.setStateForUpdate} />)
                         else 
                             return (
                                 <BookList authorOnHomePage={true}/>
                             )
-                    }):<div></div>}
+                    }):<h1>Loading...</h1>}
                 </div>
         );
         return <h1>Loading...</h1>;

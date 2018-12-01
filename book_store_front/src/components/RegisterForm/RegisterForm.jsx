@@ -19,16 +19,17 @@ class RegisterForm extends Component {
 
     async handleSubmit(e){
         e.preventDefault()
-        if(this.state.password !== this.state.password_confirmation){
+        if(!this.props.checkPasswordMatch(this.state.password, this.state.password_confirmation)){
             this.setState({password:'',  password_confirmation:'', passwordsMatch:false});
             return;
         }
-        if(this.state.password.length<6){
+        if(this.props.checkPasswordLength(this.state.password)){
             this.setState({password:'',  password_confirmation:'', passwordTooShort:true});
             return;
         }
-        const res = await this.props.handleRegisterSubmit(e, this.state);
+        const res = await this.props.register(this.state);
         this.setState({registerFailed:(!res), password:'', password_confirmation:''});
+        this.props.checkAuthorAuthentication();
     }
 
     handleChange(e){

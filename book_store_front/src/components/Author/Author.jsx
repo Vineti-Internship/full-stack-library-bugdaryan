@@ -1,37 +1,28 @@
 import React from 'react';
-import BookList from './BookList'
+import BookList from '../BookList'
 
 class Author extends React.Component  {
     constructor(){
         super();
         this.state={
-            author:null,
-            authorLoaded: false
+            author:null
         };
     }
 
     async componentDidMount(){
-        try{
-            const res = await fetch(`/authors/${this.props.match.params.authorId}`);
-            const author = await res.json(); 
-            this.setState({
-                author:author,
-                authorLoaded: true
-            });
-        } catch (err){
-            console.log(err);
-        }
+        await this.props.getAuthor(this.props.match.params.authorId);
+        this.setState({author:this.props.author});
     }
 
 render(){
-    if(this.state.authorLoaded)
+    if(this.state.author && !this.props.authorsIsLoading)
         return (
             <div className='author'>
                 <h1>Author: {this.state.author.name}</h1>
                 <h2>Email: {this.state.author.email}</h2>
                 <h2>Username: {this.state.author.username}</h2>
                 Books
-                <BookList authorId={this.state.author.id} />
+                <BookList username={this.state.author.authorId} />
             </div>
         );
     else

@@ -1,16 +1,16 @@
 import UpdateBookForm from './UpdateBookForm';
-import {BooksContext} from '../../contexts/BookContext';
+import {BooksContext} from '../../contexts/BooksContext';
 import React from 'react';
 
 export default (props)=> (
     <BooksContext.Consumer>
         {({
             updateBook,
-            isLoading
+            booksIsLoading
         }) => 
                 <UpdateBookForm 
                     {...props}
                     updateBook={updateBook}
-                    isLoading={isLoading} />}
+                    booksIsLoading={booksIsLoading} />}
     </BooksContext.Consumer>
 );
