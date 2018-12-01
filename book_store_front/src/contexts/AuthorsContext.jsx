@@ -113,7 +113,8 @@ export class AuthorsProvider extends React.Component{
     async deleteAuthor(){
         try {
             this.setState({authorsIsLoading:true});
-            await Api.delete(`/authors/${this.state.author.authorId}`);
+            await this.getCurrentAuthor();
+            await Api.delete(`/authors/${this.state.currentAuthor.id}`);
             this.setState({authorsIsLoading:false});
             this.logout();
         } catch (err) {

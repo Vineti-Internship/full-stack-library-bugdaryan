@@ -36,7 +36,7 @@ class Dashboard extends Component {
                 <div className='dash'>
                     <div className='profile' style={{border:'2px solid black', padding:'4px'}}>
                         {
-                        this.state.updateProfile? <UpdateProfileForm setStateForUpdate={this.setStateForUpdate}/> :
+                        this.state.updateProfile? <UpdateProfileForm setStateForUpdate={this.setStateForUpdate} checkAuthorAuthentication={this.props.checkAuthorAuthentication}/> :
                             <ProfileForm setStateForUpdate={this.setStateForUpdate}/>
                         }
                     </div>

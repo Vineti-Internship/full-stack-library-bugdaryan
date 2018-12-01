@@ -24,6 +24,7 @@ class App extends Component {
 
 	checkAuthorAuthentication(){
 		this.setState({auth:Auth.isAuthorAuthenticated()});
+		console.log(this.state)
 	}
 
 	async logout(){

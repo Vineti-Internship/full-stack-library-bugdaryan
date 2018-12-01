@@ -13,6 +13,7 @@ class UpdateProfileForm extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.deleteAuthor = this.deleteAuthor.bind(this);
     }
 
     async componentWillMount(){
@@ -50,8 +51,13 @@ class UpdateProfileForm extends React.Component {
         this.props.setStateForUpdate(e,false);
     }
 
+    async deleteAuthor(){
+        await this.props.deleteAuthor();
+        this.props.checkAuthorAuthentication();
+    }
+
     render() {
-        if(!this.props.authorIsLoading)
+        if(!this.props.authorsIsLoading)
             return (
                 <form onSubmit={(e) => this.handleUpdate(e,this.state)}>
                 <div>
@@ -64,7 +70,7 @@ class UpdateProfileForm extends React.Component {
                 </div>
                     <input type="submit" value="Update" />
                     <button onClick={(e) => this.props.setStateForUpdate(e, false)}>Cancel</button>
-                    <button onClick={(e) => this.props.deleteAuthor()}>Delete Account</button>
+                    <button onClick={(e) => this.deleteAuthor()}>Delete Account</button>
                     <label>{this.state.passwordMatch?'':"Password didn't match"}</label>
                     <label>{this.state.shortPassword?"Password is too short, minimum 6 characters":''}</label>
                 </form>
