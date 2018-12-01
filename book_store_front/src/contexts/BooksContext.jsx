@@ -42,7 +42,7 @@ export class BooksProvider extends React.Component {
             this.setState({booksIsLoading:true});
             await Api.update(`/books/${book.id}`, book, 'book');
             this.setState({booksIsLoading:false});
-            this.getAuthorBooks();
+            // await this.getAuthorBooks(book.author.id);
         } catch (err) {
             console.log(err);
         }

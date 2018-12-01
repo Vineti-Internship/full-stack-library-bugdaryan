@@ -66,7 +66,7 @@ class BookList extends Component {
             this.state.books.map(book => {
             return (
                 book.id===this.state.updateBookId? 
-                    <UpdateBookForm book={book} setUpdateBookId={this.setUpdateBookId} /> 
+                    <UpdateBookForm book={book} getBooks={this.getBooks} setUpdateBookId={this.setUpdateBookId} /> 
                     :this.renderBook(book)
             );
         }))

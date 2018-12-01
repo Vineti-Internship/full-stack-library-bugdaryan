@@ -23,7 +23,7 @@ class RegisterForm extends Component {
             this.setState({password:'',  password_confirmation:'', passwordsMatch:false});
             return;
         }
-        if(this.props.checkPasswordLength(this.state.password)){
+        if(!this.props.checkPasswordLength(this.state.password)){
             this.setState({password:'',  password_confirmation:'', passwordTooShort:true});
             return;
         }

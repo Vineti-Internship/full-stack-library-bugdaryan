@@ -27,6 +27,11 @@ class AddBookForm extends Component {
         
         await this.props.addBook(this.state);
         await this.props.getBooks();
+        this.setState({
+            title:'',
+            genre:'',
+            description:''
+        })
     }
 
     render() {

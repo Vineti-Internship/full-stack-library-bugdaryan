@@ -1,6 +1,11 @@
 import React from 'react';
 
 class UpdateBookForm extends React.Component {
+    constructor(){
+        super();
+        this.handleChange = this.handleChange.bind(this);
+        this.updateBook = this.updateBook.bind(this);
+    }
 
     componentWillMount(){
         this.setState({
@@ -22,10 +27,11 @@ class UpdateBookForm extends React.Component {
         });
     }
 
-    updateBook(e){
+    async updateBook(e){
         e.preventDefault();
-        this.props.updateBook(this.state);
-        this.props.setStateForUpdate(e, -1);
+        await this.props.updateBook(this.state);
+        this.props.setUpdateBookId(e, -1);
+        await this.props.getBooks();
     }
 
     render() {
@@ -36,7 +42,7 @@ class UpdateBookForm extends React.Component {
                     <input type="text" name="genre" required={true} placholder='genre' value={this.state.genre} onChange={this.handleChange}/>
                     <textarea type="text" name="description" placholder='description' value={this.state.description} onChange={this.handleChange}/>
                     <input type="submit" value="Update Book" />
-                    <button onClick={(e) => this.props.setStateForUpdate(e, -1)}>Cancel</button>
+                    <button onClick={(e) => this.props.setUpdateBookId(e, -1)}>Cancel</button>
                 </form>
             );
         return <h1>Loading...</h1>
