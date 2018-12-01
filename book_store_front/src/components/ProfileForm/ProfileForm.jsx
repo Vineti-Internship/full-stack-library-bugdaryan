@@ -1,4 +1,4 @@
-
+import Spinner from '../../helpers/Spinner';
 import React from 'react';
 
 class ProfileForm extends React.Component {
@@ -34,7 +34,7 @@ class ProfileForm extends React.Component {
                     <button onClick={(e)=> this.props.setStateForUpdate(e,-1,true)}>Edit Profile</button>
                 </div>
             );
-        return <h1>Loading...</h1>
+        return <Spinner/>
     }
 }
 

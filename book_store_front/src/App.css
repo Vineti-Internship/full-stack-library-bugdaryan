@@ -25,6 +25,13 @@
   outline: none;
 }
 
+.nav span a{
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  height: 21px;
+}
+
+
 
 
 .nav a, button {
@@ -43,3 +50,10 @@
   color:rgb(72, 110, 170);
 }
 
+.author a h2{
+  color:white;
+}
+
+.book a h2{
+  color:white;
+}

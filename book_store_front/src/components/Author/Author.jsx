@@ -1,5 +1,6 @@
 import React from 'react';
 import BookList from '../BookList'
+import Spinner from '../../helpers/Spinner';
 
 class Author extends React.Component  {
     constructor(){
@@ -26,7 +27,7 @@ render(){
             </div>
         );
     else
-        return <h1>Loading...</h1>
+        return <Spinner/>
     }
 }
 

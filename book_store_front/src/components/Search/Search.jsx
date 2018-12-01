@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import '../../styles/Search.css';
+import Spinner from '../../helpers/Spinner';
 
 class Search extends React.Component {
     constructor(){
@@ -54,7 +55,7 @@ class Search extends React.Component {
                 </div>
             );
         }
-        return <h1>Loading...</h1>
+        return <Spinner/>;
     }
 }
 

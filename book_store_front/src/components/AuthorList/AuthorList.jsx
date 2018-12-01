@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import Spinner from '../../helpers/Spinner';
 
 class AuthorList extends Component {
     constructor(){
@@ -23,8 +24,8 @@ class AuthorList extends Component {
         return this.state.authors.map(author => {
             return (
                 <div className="author" key={author.id}>
-                    <Link to={`/authors/${author.id}`}><h2>{author.name}</h2></Link>
-                    <h2>{author.username}</h2>
+                    <Link to={`/authors/${author.id}`}><h2>Name: {author.name}</h2></Link>
+                    <h2>Username: {author.username}</h2>
                 </div>
             )
         })
@@ -33,7 +34,7 @@ class AuthorList extends Component {
     render() {
         return (
             <div className='author-list'>
-                {!this.props.authorsIsLoading && this.state.authors? this.renderAuthors():<h1>Loading...</h1>}
+                {!this.props.authorsIsLoading && this.state.authors? this.renderAuthors():<Spinner />}
             </div>
         );
     }

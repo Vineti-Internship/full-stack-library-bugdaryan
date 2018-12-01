@@ -19,4 +19,5 @@ input, textArea{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     outline: none;
+    margin:4px;
 }

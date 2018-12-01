@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from '../../helpers/Spinner';
 
 class UpdateBookForm extends React.Component {
     constructor(){
@@ -49,7 +50,7 @@ class UpdateBookForm extends React.Component {
                     <button onClick={(e) => this.props.setUpdateBookId(e, -1)}>Cancel</button>
                 </form>
             );
-        return <h1>Loading...</h1>
+        return <Spinner/>
     }
 }
 

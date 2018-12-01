@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import UpdateBookForm from '../UpdateBookForm';
 import AddBookForm from '../AddBookForm';
+import Spinner from '../../helpers/Spinner';
 
 class BookList extends Component {
     constructor(){
@@ -82,7 +83,7 @@ class BookList extends Component {
             {this.props.authorOnHomePage && <AddBookForm getBooks={this.getBooks}/>}
                 {!this.props.booksIsLoading && this.state.books?
                     this.renderBooks()
-                    :<h1>Loading...</h1>}
+                    :<Spinner/>}
             </div>
         );
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from '../../helpers/Spinner';
 
 class UpdateProfileForm extends React.Component {
     constructor(){
@@ -68,7 +69,7 @@ class UpdateProfileForm extends React.Component {
                     <label>{this.state.shortPassword?"Password is too short, minimum 6 characters":''}</label>
                 </form>
             );
-        return <h1>Loading...</h1>
+        return <Spinner/>;
     }
 }
 

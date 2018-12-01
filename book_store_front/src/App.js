@@ -40,9 +40,9 @@ class App extends Component {
 						<Link to='/books' style={{marginRight:'8px'}}>Books</Link>
 						<Link to='/authors' style={{marginRight:'8px'}}>Authors</Link>
 						<span><input type="text" placeholder='Search...' maxLength='20' onChange={(e)=> this.setState({search:e.target.value})} value={this.state.search}/><Link className="fas fa-search" to='/search'></Link></span>
-						{(this.state.auth)? '':<Link to='/login' style={{marginRight:'8px'}}>Login</Link>}
+						{(this.state.auth)? '':<Link to='/login' style={{marginRight:'8px'}}>Log In</Link>}
 						{(this.state.auth)? '':<Link to='/register' style={{marginRight:'8px'}}>Register</Link>}
-						{(this.state.auth)? <button onClick={this.logout} style={{float:'right'}}>Logout</button>:''}
+						{(this.state.auth)? <button onClick={this.logout} style={{float:'right'}}>Log Out</button>:''}
 					</div>
 					<Route exact path = '/search' render={()=> <Search search={this.state.search}/>} />
 					<Route exact path = '/dash' render={()=> (this.state.auth)?<Dashboard checkAuthorAuthentication={this.checkAuthorAuthentication}/>: <Redirect to='/books' /> } />

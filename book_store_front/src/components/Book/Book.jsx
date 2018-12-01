@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-
+import Spinner from '../../helpers/Spinner';
 
 class Book extends React.Component  {
 state={
@@ -25,7 +25,7 @@ render(){
             </div>
         );
     else
-        return <h1>Loading...</h1>
+        return <Spinner/>
     }
 }
 
