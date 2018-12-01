@@ -1,19 +1,30 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 
-class ProfileForm extends Component {
-    state={
-        author:null
+class ProfileForm extends React.Component {
+    constructor(){
+        super();
+        this.state={
+            author:null
+        }
+
+        this.getAuthor = this.getAuthor.bind(this);
     }
 
-    async componentDidMount(){
+
+    async getAuthor(){
         await this.props.getCurrentAuthor();
+        
         this.setState({author:this.props.currentAuthor});
     }
 
+    componentDidMount(){
+        this.getAuthor();
+    }
+
     render() {
-        console.log(this.state)
-        if(!this.props.isLoading && this.state.author)
+        // console.log(this.state)
+        if(!this.props.authorsIsLoading && this.state.author)
             return (
                 <div className='profile-info'>
                     <h1>Profile</h1>

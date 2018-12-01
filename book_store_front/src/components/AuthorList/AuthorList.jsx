@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import Api from '../../helpers/Api'
 
 class AuthorList extends Component {
     constructor(){
@@ -12,7 +11,6 @@ class AuthorList extends Component {
     }
 
     async getAuthors(){
-        console.log(this.props)
         await this.props.getAllAuthors();
         this.setState({authors:this.props.allAuthors});
     }
@@ -25,7 +23,7 @@ class AuthorList extends Component {
         return this.state.authors.map(author => {
             return (
                 <div className="author" key={author.id}>
-                    <Link to={`/authors/${author.authorId}`}><h2>{author.name}</h2></Link>
+                    <Link to={`/authors/${author.id}`}><h2>{author.name}</h2></Link>
                     <h2>{author.username}</h2>
                 </div>
             )

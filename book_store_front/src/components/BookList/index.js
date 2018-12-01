@@ -11,17 +11,19 @@ export default (props)=> (
             getAllBooks,
             authorBooks,
             getAuthorBooks,
-            booksIsLoading
+            booksIsLoading,
+            removeBook
             }) =>         
                 <BookList 
-                {...props}
-                authorBooks={authorBooks}
-                getAuthorBooks={getAuthorBooks}
-                allBooks={allBooks}
-                getAllBooks={getAllBooks}
-                booksIsLoading={booksIsLoading}
-                currentAuthorBooks={currentAuthorBooks} 
-                getCurrentAuthorBooks={getCurrentAuthorBooks}
+                    {...props}
+                    removeBook={removeBook}
+                    authorBooks={authorBooks}
+                    getAuthorBooks={getAuthorBooks}
+                    allBooks={allBooks}
+                    getAllBooks={getAllBooks}
+                    booksIsLoading={booksIsLoading}
+                    currentAuthorBooks={currentAuthorBooks} 
+                    getCurrentAuthorBooks={getCurrentAuthorBooks}
                 />
         }
     </BooksContext.Consumer>

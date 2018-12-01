@@ -17,10 +17,16 @@ class App extends Component {
 			auth: Auth.isAuthorAuthenticated()
 		};
 		this.checkAuthorAuthentication = this.checkAuthorAuthentication.bind(this);
+		this.logout = this.logout.bind(this);
 	}
 
 	checkAuthorAuthentication(){
-		this.setState({auth:Auth.authenticateToken});
+		this.setState({auth:Auth.isAuthorAuthenticated()});
+	}
+
+	async logout(){
+		await this.props.logout();
+		this.checkAuthorAuthentication();
 	}
 
 	render() {
@@ -33,7 +39,7 @@ class App extends Component {
 						<Link to='/authors' style={{marginRight:'8px'}}>Authors</Link>
 						{(this.state.auth)? '':<Link to='/login' style={{marginRight:'8px'}}>Login</Link>}
 						{(this.state.auth)? '':<Link to='/register' style={{marginRight:'8px'}}>Register</Link>}
-						{(this.state.auth)? <button onClick={this.handleLogout} style={{float:'right'}}>Logout</button>:''}
+						{(this.state.auth)? <button onClick={this.logout} style={{float:'right'}}>Logout</button>:''}
 					</div>
 					<Route exact path = '/dash' render={()=> (this.state.auth)?<Dashboard checkAuthorAuthentication={this.checkAuthorAuthentication}/>: <Redirect to='/books' /> } />
 					<Route exact path = '/books' render={()=> <BookList/>} />

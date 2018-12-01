@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import UpdateBookForm from '../UpdateBookForm';
+import AddBookForm from '../AddBookForm';
 
 class BookList extends Component {
-    state={
-        updateBookId:-1,
-        books:null
+    constructor(){
+        super();
+
+        this.state={
+            updateBookId:-1
+        }
+
+        this.setUpdateBookId = this.setUpdateBookId.bind(this);
+        this.getBooks = this.getBooks.bind(this);
+        this.renderBook = this.renderBook.bind(this);
+        this.renderBooks = this.renderBooks.bind(this);
+    }
+
+    // state={
+    //     updateBookId:-1
+    // }
+
+    async removeBook(e, book){
+        await this.props.removeBook(e, book);
+        await this.getBooks();
     }
 
     setUpdateBookId(e, id){
@@ -20,7 +38,7 @@ class BookList extends Component {
             this.setState({books:this.props.currentAuthorBooks});
         } else if(this.props.authorId){
             await this.props.getAuthorBooks(this.props.authorId);
-            this.setState({books:this.props.authorId});
+            this.setState({books:this.props.authorBooks});
         } else{
             await this.props.getAllBooks();
             this.setState({books:this.props.allBooks});
@@ -42,22 +60,30 @@ class BookList extends Component {
         );
     }
 
+    renderBooks(){
+        
+        return ( 
+            this.state.books.map(book => {
+            return (
+                book.id===this.state.updateBookId? 
+                    <UpdateBookForm book={book} setUpdateBookId={this.setUpdateBookId} /> 
+                    :this.renderBook(book)
+            );
+        }))
+    }
+
     componentDidMount(){
         this.getBooks();
     }
 
-    renderBooks(){
-        return this.state.books.map(book => {
-            return (
-                book.id===this.state.updateBookId? <UpdateBookForm book={book} setUpdateBookId={this.setUpdateBookId} /> :this.renderBook(book)
-            );
-        })
-    }
     
     render() {
         return (
             <div className='book-list'>
-                {this.props.booksIsLoading || !this.state.books ?<h1>Loading...</h1>:this.renderBooks()}
+            {this.props.authorOnHomePage && <AddBookForm getBooks={this.getBooks}/>}
+                {!this.props.booksIsLoading && this.state.books?
+                    this.renderBooks()
+                    :<h1>Loading...</h1>}
             </div>
         );
     }

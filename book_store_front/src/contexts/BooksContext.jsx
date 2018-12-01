@@ -16,6 +16,16 @@ export class BooksProvider extends React.Component {
         this.find = this.find.bind(this);
     }
 
+    state={
+        booksIsLoading:false,
+        allBooks:[],
+        booksLoaded:false,
+        authorBooks:[],
+        authorBooksLoaded:false,
+        currentAuthorBooks:[],
+        book:null
+    };
+
     async addBook(book){      
         try {
             this.setState({booksIsLoading:true});
@@ -57,16 +67,15 @@ export class BooksProvider extends React.Component {
         }
     }
 
-    async getAuthorBooks(username){
+    async getAuthorBooks(authorId){
         try{
             this.setState({booksIsLoading:true});
-            const res = await Api.get(`/authors/${username}`);
+            const res = await Api.get(`/authors/${authorId}`);
             const {books} = await res.json(); 
             this.setState({
                 authorBooks:books,
-                authorBooksLoaded: true
+                booksIsLoading:false
             });
-            this.setState({booksIsLoading:false});
         } catch (err){
             console.log(err);
         }
@@ -122,16 +131,6 @@ export class BooksProvider extends React.Component {
             )[0]
         );
     }
-
-    state={
-        booksIsLoading:false,
-        allBooks:[],
-        booksLoaded:false,
-        authorBooks:[],
-        authorBooksLoaded:false,
-        currentAuthorBooks:null,
-        book:null
-    };
 
     render(){
         return ( 

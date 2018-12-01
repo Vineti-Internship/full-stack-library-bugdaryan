@@ -10,6 +10,7 @@ export default (props)=> (
                 authorsIsLoading={authorsIsLoading}
                 getCurrentAuthor={getCurrentAuthor}
                 currentAuthor={currentAuthor}
-            />}
+            />
+        }
     </AuthorsContext.Consumer>
 );

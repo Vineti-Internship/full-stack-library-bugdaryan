@@ -22,7 +22,7 @@ render(){
                 <h2>Email: {this.state.author.email}</h2>
                 <h2>Username: {this.state.author.username}</h2>
                 Books
-                <BookList username={this.state.author.authorId} />
+                <BookList authorId={this.state.author.id} />
             </div>
         );
     else

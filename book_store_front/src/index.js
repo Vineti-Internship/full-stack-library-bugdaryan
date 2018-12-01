@@ -4,12 +4,17 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {BooksProvider} from './contexts/BooksContext';
-import {AuthorsProvider} from './contexts/AuthorsContext';
+import {AuthorsProvider, AuthorsContext} from './contexts/AuthorsContext';
 
 ReactDOM.render(
     <AuthorsProvider>
         <BooksProvider>
-            <App />
+            <AuthorsContext.Consumer>
+                {
+                ({logout})=>
+                    <App logout={logout}/>
+                }
+            </AuthorsContext.Consumer>
         </BooksProvider>
     </AuthorsProvider>,
     document.getElementById('root'));

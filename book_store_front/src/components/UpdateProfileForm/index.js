@@ -5,13 +5,19 @@ import React from 'react';
 export default (props)=> (
     <AuthorsContext.Consumer>
         {({
-            currentAuthor, 
+            getCurrentAuthor,
+            currentAuthor,
             updateAuthor, 
             deleteAuthor, 
-            authorsIsLoading
+            authorsIsLoading,
+            checkPasswordMatch,
+            checkPasswordLength,
           }) => 
             <UpdateProfileForm 
                 {...props}
+                checkPasswordLength={checkPasswordLength}
+                checkPasswordMatch={checkPasswordMatch}
+                getCurrentAuthor={getCurrentAuthor}
                 currentAuthor={currentAuthor}
                 updateAuthor={updateAuthor}
                 deleteAuthor={deleteAuthor}

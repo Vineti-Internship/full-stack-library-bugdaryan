@@ -22,10 +22,17 @@ class AddBookForm extends Component {
         });
     }
 
+    async addBook(e){
+        e.preventDefault();
+        
+        await this.props.addBook(this.state);
+        await this.props.getBooks();
+    }
+
     render() {
         return (
             <div className='form'>
-                <form onSubmit={(e) => this.props.addBook(e,this.state)}>
+                <form onSubmit={(e) => this.addBook(e)}>
                     <input type="text" name="title" required={true} placholder='title' value={this.state.title} onChange={this.handleChange}/>
                     <input type="text" name="genre" required={true} placholder='genre' value={this.state.genre} onChange={this.handleChange}/>
                     <textarea type="text" name="description" placholder='description' value={this.state.description} onChange={this.handleChange}/>

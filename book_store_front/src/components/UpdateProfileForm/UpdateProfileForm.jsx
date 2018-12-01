@@ -1,6 +1,6 @@
 import React from 'react';
 
-class UpdateAuthorForm extends React.Component {
+class UpdateProfileForm extends React.Component {
     constructor(){
         super();
         this.state={
@@ -36,16 +36,17 @@ class UpdateAuthorForm extends React.Component {
         });
     }
 
-    handleUpdate(e){
+    async handleUpdate(e){
         e.preventDefault();
-        if(this.props.checkPasswordMatch(this.state.password, this.state.password_confirmation)){
+        if(this.state.password!==this.state.password_confirmation ){
             this.setState({passwordMatch:false});
             return;
         } else if(this.state.password && this.state.password.length<6){
             this.setState({shortPassword:true});
             return;
         }
-        this.props.updateAuthor(this.state);
+        await this.props.updateAuthor(this.state);
+        this.props.setStateForUpdate(e,false);
     }
 
     render() {
@@ -66,4 +67,4 @@ class UpdateAuthorForm extends React.Component {
     }
 }
 
-export default UpdateAuthorForm;
+export default UpdateProfileForm;
